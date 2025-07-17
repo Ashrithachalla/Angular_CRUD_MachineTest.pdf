@@ -1,0 +1,24 @@
+<h2>To Do list</h2>
+
+<input [(ngModel)] = "newTask" placeholder="New Task" />
+<button (click)="addTodo()">Add Task</button>
+
+<ul>
+    <li *ngFor = "let todo of todos">
+        <input type = "checkbox" [checked] = "todo.done" (change) = "toggleDone(todo)" />
+
+        <span *ngIf = "editTodoId == todo.id">
+            <input 
+                 [(ngModel)] ="editTaskText" 
+                 (keydown.enter) = "saveEdit(todo)"
+                 (keydown.escape) = "canedit()"
+                 (blur) = "canedit()"
+                 autofocus
+                 /></span>
+        <span *ngIf = "editTodoId != todo.id" (dblclick)="startEdit(todo)">{{todo.title}}</span>
+        <button (click)="deleteTodo(todo.id)">Delete</button>
+   
+    </li>
+</ul>
+
+<router-outlet />
